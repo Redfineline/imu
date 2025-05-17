@@ -37,7 +37,7 @@ def receive_broadcast(port=5000):
 if __name__ == "__main__":
     import threading
 
-    # Replace with your actual virtual or real serial port name
+    # Replace with your actual virtual or real serial port name. Reference README
     serial_out = "/dev/pts/9"  # Simulator sends here
     broadcast_thread = threading.Thread(target=receive_broadcast, daemon=True)
     broadcast_thread.start()
