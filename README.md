@@ -8,7 +8,7 @@ This project implements a complete system for parsing and broadcasting data from
 
 To build the c++ executable use the gollowing command:
 
-    "g++ main.cpp imu_parser.cpp -o imu_parser"
+    make
 
 
 To run the Python imu_simulator that sends mock IMU packets over UART and reads back the broadcast data follow these steps:
