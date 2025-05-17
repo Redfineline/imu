@@ -1,13 +1,24 @@
 #include "imu_parser.h"
-#include <fcntl.h>
-#include <termios.h>
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <cstring>
-#include <iostream>
+#include <fcntl.h> // For open()
+#include <termios.h> // For configuring UART (termios structs)
+#include <unistd.h> // For read(), close(), etc.
+#include <arpa/inet.h> // For ntohl() (network-to-host long)
+#include <cstring> // For memcpy(), memset(), memcmp()
+#include <iostream> // For std::cerr and std::perror
 
+
+
+
+
+//fd is a file descriptor for the UART port.
+//packet is the output struct to fill in with parsed data.
+//Returns true if a complete, valid packet is read; false otherwise.
 bool readPacket(int fd, IMUPacket &packet) {
+
+    //Expected 4-byte header that marks the start of a valid packet.
     const uint8_t HEADER[4] = {0x7F, 0xF0, 0x1C, 0xAF};
+    
+    //Temporary buffer to store the whole 20-byte packet
     uint8_t buffer[20];
 
     while (true) {
@@ -33,7 +44,12 @@ bool readPacket(int fd, IMUPacket &packet) {
                     netFloat = ntohl(netFloat);
                     std::memcpy(((float*)&packet.xRate) + i, &netFloat, 4);
                 }
-
+                  std::cout << "Parsed Packet:\n";
+                std::cout << "  Packet Count: " << packet.packetCount << "\n";
+                std::cout << "  X Rate (rdps): " << packet.xRate << "\n";
+                std::cout << "  Y Rate (rdps): " << packet.yRate << "\n";
+                std::cout << "  Z Rate (rdps): " << packet.zRate << "\n";
+                std::cout << "-------------------------\n";
                 return true;
             }
         }

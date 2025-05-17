@@ -8,7 +8,7 @@
 #define BROADCAST_PORT 5000
 
 void imuThread() {
-    int fd = configureUART("/dev/tty1");
+    int fd = configureUART("/dev/pts/10");
     if (fd < 0) {
         std::cout << "Failed to open UART\n";
         return;
