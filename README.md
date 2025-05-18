@@ -6,7 +6,7 @@ This project implements a complete system for parsing and broadcasting data from
 1.  Clone the repository: `git clone [repository URL]`
 ## Usage
 
-To build the c++ executable use the gollowing command:
+To build the c++ executable use the following command:
 
     make
 
